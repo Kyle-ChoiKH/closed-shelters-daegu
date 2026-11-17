@@ -223,7 +223,7 @@ details.fold>summary{cursor:pointer;font-weight:700;font-size:17px;padding:6px 0
   </div>
   <p class="rx">처방(좌석이 확보된 현실안, C안): 30석 이상 공공시설 5곳만 주말에 열어도 주말 커버율 6.0% → <b>15.8%(+9.8%p)</b>, 주말 좌석 105석 → <b>403석</b> — 신규 건축 0곳
     <small>도달 인원 최대안(B안)은 20.4%(+14.3%p)까지 오르지만 선정 5곳의 좌석 합이 192석뿐이라 대표안으로 쓰지 않습니다.</small></p>
-  <p class="basis">기준: 수성구 공개 쉼터 데이터(data.go.kr 15148351)·SGIS 행정동 인구와 경계·OSM 보행망, 보행속도 3.28km/h·10분(547m), 65세 이상 78,247명(SGIS 2024). 공개 데이터 기준·참고용이며 실제 운영과 다를 수 있습니다. 작성 기준일 2026-11-15.</p>
+  <p class="basis">기준: 수성구 공개 쉼터 데이터(data.go.kr 15148351)·SGIS 행정동 인구와 경계·OSM 보행망, 보행속도 3.28km/h·10분(547m), 65세 이상 78,247명(SGIS 2024). 공개 데이터 기준·참고용이며 실제 운영과 다를 수 있습니다. 작성 기준일 2026-11-18.</p>
 </div></header>
 
 <!-- 2. 왜 지금인가 -->
@@ -447,6 +447,7 @@ details.fold>summary{cursor:pointer;font-weight:700;font-size:17px;padding:6px 0
   <p class="narrow src">수치는 AI가 만들지 않습니다. 모든 수치는 공공데이터 원자료에서 분석 모델(코드)로 산출하고, 생성형 AI의 출력(코드·문장)은 자동 검증과 사람 검토를 거쳐 반영했습니다. 사용 모델과 프롬프트 원문은 붙임 4(AI 프롬프트 활용 내역서)에 적었습니다.</p>
   <h3>AI 출력 오류와 사람의 수정</h3>
   <div class="tblwrap"><table><thead><tr><th>단계</th><th>AI가 작성한 코드·문구의 출력(문제)</th><th>발견 방법</th><th>사람의 수정</th></tr></thead><tbody><tr><td class='nowrap'>1차 최적화(AI가 짠 후보 규칙)</td><td>은행·119안전센터를 주말 개방 후보로 선정(A안)</td><td class='mut'>현실성 판단</td><td>후보를 공공시설로 제한(B안), A안은 민간 협약 시 상한으로만 표시</td></tr><tr><td class='nowrap'>B안 처방(AI가 짠 목적함수)</td><td>선정 5곳 좌석 합 192석(5석·7석 시설 포함)</td><td class='mut'>좌석(수용인원) 대조</td><td>공공시설·30석 이상·열 민감도 가중 C안으로 다시 풀이 → 주말 좌석 403석</td></tr><tr><td class='nowrap'>민감도 문구</td><td>&#x27;어떤 파라미터에서도 명목 70% 이상&#x27;</td><td class='mut'>격자 원값 대조(5분 조합 28.4~56.5%)</td><td>&#x27;10분 이상 기준에서 명목 약 70% 이상&#x27;으로 한정</td></tr><tr><td class='nowrap'>HSI 순위</td><td>순위 동점 때문에 &#x27;HSI 상위 30곳 중 서구 5곳/6곳&#x27;이 결과물마다 다름</td><td class='mut'>결과물 간 숫자 대조</td><td>동점은 등가중 점수로 가르는 규칙을 넣어 재계산(서구 5곳)</td></tr><tr><td class='nowrap'>k-평균 유형명</td><td>자동으로 붙은 유형 이름(&#x27;영유아 밀집형&#x27;)이 실제 특성(아파트 저민감)과 불일치</td><td class='mut'>군집 중심값 확인</td><td>사람이 중심값을 보고 4개 유형 이름과 처방을 다시 붙임</td></tr><tr><td class='nowrap'>탄소 시나리오</td><td>에어컨 대수를 시설 이름으로 합산 → 이름이 같은 시설 2행이 함께 잡혀 34대</td><td class='mut'>원자료 행 대조</td><td>선정 행으로만 합산(20대)해 추가 배출을 다시 계산</td></tr></tbody></table></div>
+  <p class="src">AI가 쓴 추측을 데이터로 검증해 철회한 사례도 있습니다. '민감도가 높은 구의 쉼터 공백이 더 클 것'이라는 추측은 서구 공개 파일에 같은 방법을 적용하자 반대 결과가 나와 지웠습니다(04절 서구 대조).</p>
   <h3>방법 요약</h3>
   <ol class="tight narrow">
     <li><b>수요</b>: SGIS 2024년 행정동 65세 이상 인구를 주거로 추정되는 OSM 건물(바닥면적 30㎡ 이상, 수성구 5,067동)에 바닥면적 비례로 배분.</li>
@@ -489,7 +490,7 @@ details.fold>summary{cursor:pointer;font-weight:700;font-size:17px;padding:6px 0
 <footer><div class="wrap">
   <p><b>접근성</b>: 핵심 숫자는 첫 화면에 글자로 고정되어 있고, 모든 차트에는 대체 텍스트와 키보드 초점(Tab)이 있습니다. 색은 색각 이상에 대비해 모양(●▲◆★○)과 함께 씁니다. 상단 '애니메이션 끄기'로 움직임을 멈출 수 있고, 운영체제의 '동작 줄이기' 설정도 따릅니다.</p>
   <p><b>크레디트</b>: 보행망·건물 데이터 © OpenStreetMap contributors(ODbL), 행정동 경계 SGIS(국가데이터처), 글꼴 Pretendard(SIL OFL 1.1), 지도 라이브러리 Leaflet(BSD-2). 기관 로고·캐릭터는 쓰지 않았습니다. 공모 안내: <a href="https://www.dcnc.or.kr/bbs/board.php?bo_table=notice&wr_id=193" target="_blank" rel="noopener">대구광역시 탄소중립지원센터 공고</a>.</p>
-  <p class="mut">문 닫힌 쉼터 — 수성구 무더위쉼터 요일·조건별 실효 커버율 진단과 운영시간 재설계 우선순위 · 수성구 요일·조건별 정밀 분석 · 대구 150개 행정동 열 민감도·유형 진단 · 작성 기준일 2026-11-15 · 공개 데이터 기준·참고용</p>
+  <p class="mut">문 닫힌 쉼터 — 수성구 무더위쉼터 요일·조건별 실효 커버율 진단과 운영시간 재설계 우선순위 · 수성구 요일·조건별 정밀 분석 · 대구 150개 행정동 열 민감도·유형 진단 · 작성 기준일 2026-11-18 · 공개 데이터 기준·참고용</p>
 </div></footer>
 
 <div id="tip" role="tooltip"></div>
